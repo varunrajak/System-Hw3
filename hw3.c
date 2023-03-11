@@ -129,11 +129,6 @@ void execute_cmd(char* cmd) {
         exit(1);
     } else {  // parent process
         waitpid(pid, &status, 0);  // wait for child process to finish
-        if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-            //printf("Command '%s' executed successfully\n", cmd);
-        } else {
-            printf("Error: command '%s' failed to execute\n", cmd);
-        }
     }
 }
 
