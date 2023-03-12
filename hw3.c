@@ -67,6 +67,11 @@ int parse_args(int argc, char ** argv) {
         case 'f':
             cmd_args.filter = strdup(optarg);
             m_flags |= filter_string;
+			if (strstr(cmd_args.filter," ")){
+				cmd_args.filter = strtok(cmd_args.filter," ");
+				cmd_args.depth = atoi(strtok(NULL," "));
+				m_flags |= depth_control;				
+			}
             if (optind < argc && argv[optind][0] != '-') {
                 cmd_args.depth = atoi(argv[optind++]);
                 m_flags |= depth_control;
@@ -129,6 +134,7 @@ void execute_cmd(char* cmd) {
         exit(1);
     } else {  // parent process
         waitpid(pid, &status, 0);  // wait for child process to finish
+      
     }
 }
 
